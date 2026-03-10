@@ -2,7 +2,7 @@
 apt-fast v1.11
 Use this just like aptitude or apt-get for faster package downloading.
 
-Copyright: 2008-2012 Matt Parnell, http://www.mattparnell.com
+Copyright: 2008-2012 Matt Parnell
 Improvements, maintenance, revisions - 2012, 2017-2019 Dominique Lasserre
 
 You may distribute this file under the terms of the GNU General
@@ -10,8 +10,8 @@ Public License as published by the Free Software Foundation; either
 version 3 of the License, or (at your option) any later version.
 -->
 
-apt-fast 1.9
-============
+apt-fast 1.11
+=============
 apt-fast is a shell script wrapper for apt-get and aptitude that can drastically improve apt download times by downloading packages in parallel, with multiple connections per package.
 
 ## Table of Contents
@@ -68,7 +68,7 @@ Some distros, such as PCLinuxOS, include apt-fast in their repositories. However
 Types: deb
 URIs: https://ppa.launchpadcontent.net/apt-fast/stable/ubuntu/
 Suites: focal
-Components: main 
+Components: main
 Signed-By: /etc/apt/keyrings/apt-fast.gpg
 ```
 
