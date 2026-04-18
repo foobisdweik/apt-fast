@@ -41,7 +41,7 @@ root=$#
 option=
 for argument in "$@"; do
   case "$argument" in
-    upgrade | full-upgrade | install | dist-upgrade | build-dep)
+    upgrade | full-upgrade | safe-upgrade | install | reinstall | satisfy | dist-upgrade | dselect-upgrade | build-dep)
       option="install"
       ;;
     clean | autoclean)
@@ -55,7 +55,7 @@ for argument in "$@"; do
       option="source"
       root=0
       ;;
-    changelog | list | show | search | help | --help | -h)
+    changelog | list | show | showsrc | search | versions | check | indextargets | moo | why | why-not | help | --help | -h)
       option="readonly"
       root=0
       ;;
@@ -391,7 +391,15 @@ get_uris(){
     'apt'|'apt-get') uri_mgr="${_APTMGR}";;
     *) uri_mgr='apt-get';;
   esac
-  uris_full="$("$uri_mgr" "${APT_SCRIPT_WARNING[@]}" -y --print-uris "$@")"
+  # Translate aptitude-only subcommands to apt-get equivalents for --print-uris.
+  local -a uri_args=()
+  for arg in "$@"; do
+    case "$arg" in
+      safe-upgrade) uri_args+=("upgrade") ;;
+      *) uri_args+=("$arg") ;;
+    esac
+  done
+  uris_full="$("$uri_mgr" "${APT_SCRIPT_WARNING[@]}" -y --print-uris "${uri_args[@]}")"
   CLEANUP_STATE="$?"
   if [ "$CLEANUP_STATE" -ne 0 ]
   then
